@@ -1,0 +1,44 @@
+{% extends 'base1.html' %}
+{% load static %}
+   
+{% block content%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <style>
+                  body {
+             
+            background:url("https://media.istockphoto.com/id/1217752721/th/%E0%B9%80%E0%B8%A7%E0%B8%84%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C/%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%9B%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B8%8B%E0%B8%AD%E0%B8%9F%E0%B8%95%E0%B9%8C%E0%B9%81%E0%B8%A7%E0%B8%A3%E0%B9%8C%E0%B8%A5%E0%B8%87%E0%B9%83%E0%B8%99%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B8%E0%B8%93.jpg?s=612x612&w=0&k=20&c=qBhiqdTeoHNyDFjP-l-bkS6cPQXnbTjOKj1znZ4U34A=")no-repeat center center fixed;
+            background-size: 50%;
+            width: 100%;
+            height: 50%;
+                  }
+        
+        
+
+            .jumbotron{
+            background-color: rgba(255, 255, 255, 0.001);
+            
+        }
+        p1{
+            font-size:2vw;
+            color:#7f3667;
+            font-family:fantasy;
+
+        }
+        h1{
+            
+            color:#ffffff;
+            font-family:fantasy;
+
+        }
+        </style>
+    </head>
+<body>
+    <div class="jumbotron text-center">
+        <p1>Error</p1>
+    <p1>{{ error_message }}</p1>
+</body>
+</html>
+{%endblock%} 
