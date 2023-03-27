@@ -12,8 +12,8 @@
  For Macos Totorial by Rickmakes https://www.youtube.com/watch?v=H1o6MWnmwpY \
 สร้าง environment ในการใช้ติดตั้ง python pakage และรันคำสั่ง pip install -r requirements.txt ใน musicgenreapp folder
 # วิธีใช้งาน
-1.ทำการ run command prompt cd เข้าสู่ path ที่มี manage.py || **cd FINAL-PROJECT-CPE-261492-main\musicgenreapp** || \
-2.run command prompt || **python manage.py runserver** || \
+1.ทำการ run command prompt cd เข้าสู่ path ที่มี manage.py **|| cd FINAL-PROJECT-CPE-261492-main\musicgenreapp ||**  \
+2.run command prompt **|| python manage.py runserver ||** \
 3.เมื่อปรากฎลิ้งเข้าลิ้งเพื่อใช้งาน web application 
 4.ทำการลงทะเบียนเพื่อใช้งาน **(สามารถใช้ demo username เพื่อเข้าไปลองใช้ได้ดังนี้ username:phumiwit, password Shoukugeki02)** \
 5.web application สามารถใส่ไฟล์ได้สองประเภทคือ .wav และ mp4
