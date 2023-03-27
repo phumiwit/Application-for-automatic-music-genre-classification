@@ -71,6 +71,12 @@ def usersignup(request):
             messages.warning(request,"Email นี้มีผู้ใช้งานแล้ว")
             return redirect("/usersignup")
         
+        if age.isdigit():
+            pass
+        else:
+            messages.warning(request, "อายุต้องเป็นตัวเลข")
+            return redirect("/usersignup")
+        
         if int(age) < 3 or int(age) > 120:
             messages.warning(request, "อายุต้องอยู่ระหว่าง 3 ถึง 120 ปี")
             return redirect("/usersignup")
