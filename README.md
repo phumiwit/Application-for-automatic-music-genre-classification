@@ -3,10 +3,13 @@
 # Installation
 ## ตัวโปรเจคใช้ภาษา python ##
 เมื่อ download ไฟล์เสร็จทำการแตกไฟล์
- ****การที่จะให้ตัวโปรเจคสามารถใส่ไฟล์ MP4 ได้จำเป็นต้อง download ffmpeg ไฟล์ และ setpath ให้ถูกต้อง**** 
+ ****การที่จะให้ตัวโปรเจคสามารถใส่ไฟล์ MP4 เพื่อวิเคราะห์ไฟล์เพลงได้จำเป็นต้องมีไฟล์ ffmpeg**** \
+ ถ้าไม่มีต้อง download และ setpath ให้ถูกต้อง \
+ สามารถ download ได้ที่ https://ffmpeg.org/download.html \
+ ***tutorial ในการติดตั้ง หรือ setpath***
  For window Tutorial by Troblechute  https://www.youtube.com/watch?v=IECI72XEox0 \
  For Macos Totorial by Rickmakes https://www.youtube.com/watch?v=H1o6MWnmwpY \
-สร้าง environment ในการใช้งานตัว code และรันคำสั่ง pip install -r requirements.txt ใน musicgenreapp folder
+สร้าง environment ในการใช้ติดตั้ง python pakage และรันคำสั่ง pip install -r requirements.txt ใน musicgenreapp folder
 # วิธีใช้งาน
 1.ทำการ run command prompt cd เข้าสู่ path ที่มี manage.py || **cd FINAL-PROJECT-CPE-261492-main\musicgenreapp** || \
 2.run command prompt || **python manage.py runserver** || \
