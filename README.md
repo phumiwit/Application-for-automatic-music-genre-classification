@@ -4,7 +4,7 @@
 เมื่อ download ไฟล์เสร็จทำการแตกไฟล์
  **** การที่จะให้ตัวโปรเจคสามารถใส่ไฟล์ MP4 ได้จำเป็นต้อง download ffmpeg ไฟล์ และ setpath ให้ถูกต้อง**** 
  Tutorial by Troblechute  https://www.youtube.com/watch?v=IECI72XEox0 \
-สร้าง environment ในการใช้งานตัว code และทำงาน pip install -r requirements.txt 
+สร้าง environment ในการใช้งานตัว code และรันคำสั่ง pip install -r requirements.txt 
 # วิธีใช้งาน
 1.ทำการ run command prompt cd เข้าสู่ path ที่มี manage.py || **cd FINAL-PROJECT-CPE-261492-main\musicgenreapp** || \
 2.run command prompt || **python run manage.py** || \
