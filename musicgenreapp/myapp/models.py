@@ -2,7 +2,7 @@ from django.db import models
 from django import forms
 from django.contrib.auth.models import User
 from jsonfield import JSONField
-# Create your models here.
+
 
 class Userdata(models.Model):
     UserName = models.CharField(max_length = 20)
