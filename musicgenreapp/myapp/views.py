@@ -1,5 +1,5 @@
 
-# Create your views here.
+
 from django.core.files.storage import default_storage
 from django.shortcuts import render,redirect
 from django.http import JsonResponse, HttpResponse
@@ -29,7 +29,7 @@ import time
 from dotenv import load_dotenv
 
 load_dotenv()
-# Create your views here.
+
 
 
 class MultipleFileUploadForm(forms.Form):
@@ -54,7 +54,7 @@ def choosefile(request):
             file_url = default_storage.url(save_path)
             path_list.append(save_path)
             user = User.objects.get(username=request.user)
-            file = File.objects.create(UserName=user, filename=filename, fileurl=file_url)
+            file = File.objects.create(UserName=user, FileName=filename, FileUrl=file_url)
             file.save()
 
         request.session['path_list'] = path_list
@@ -92,7 +92,7 @@ def predictfile(request):
     user1 = Userdata.objects.filter(UserName = request.user).first()
     for i in path_list:
         path = os.path.join(MEDIA_ROOT, i)
-        file = File.objects.filter(UserName=user, fileurl=path).first()
+        file = File.objects.filter(UserName=user, FileUrl=path).first()
         Fullpath.append(file)
         converted_path = convert_to_wav(path)
         if os.path.exists(converted_path):
@@ -109,8 +109,8 @@ def predictfile(request):
     
     for o, j, k,u in zip(predictgenre, filename, value,top3_predictgenre):
         value_json = json.dumps(k)
-        audio = Audio.objects.create(UserName=user, Filename=j, Genre=o, top3_genre = u,Value=value_json)
-        valueforchart = Valueforchart.objects.create(genre=o,age=user1.age)
+        audio = Audio.objects.create(UserName=user, FileName=j, Genre=o, Top3_Genre = u,Value=value_json)
+        valueforchart = Valueforchart.objects.create(Genre=o,Age=user1.age)
         audio.save()
         valueforchart.save()
         audio_ids.append(audio.id)
@@ -133,7 +133,7 @@ def collection(request):
         all_genre = request.POST.getlist('all_genre')
         audio_ids = request.POST.getlist('audio_id')
         # Check if collection with the same name already exists for the user
-        existing_collections = Collection.objects.filter(UserName=user, collectionname=collectionname)
+        existing_collections = Collection.objects.filter(UserName=user, CollectionName=collectionname)
         if collectionname == '':
             messages.error(request, 'Add Collection uncomplete')
             return redirect('/choosefile')
@@ -143,7 +143,7 @@ def collection(request):
         else:
             for filename, genre, audio_id, all_genre in zip(filenames, genres, audio_ids, all_genre):
                 genre_names = [t[0] for t in ast.literal_eval(all_genre)]
-                collection = Collection.objects.create(UserName=user,filename=filename, genre=genre, top3_genre=genre_names, audio_id=audio_id, collectionname=collectionname)
+                collection = Collection.objects.create(UserName=user,FileName=filename, Genre=genre, Top3_Genre=genre_names, Audio_Id=audio_id, CollectionName=collectionname)
                 collection.save()
             return redirect('/choosefile')
     else:
@@ -242,14 +242,14 @@ def stackbar(request,audio_id):
 
 @login_required(login_url="userlogin")
 def topsongspotify(request):
-    # Set up Spotify API credentials
+    
     if not request.user.is_authenticated:
         return redirect("userlogin")
         
     client_id =    os.getenv("client_id")
     client_secret = os.getenv("client_secret")
 
-    # Get an access token
+    
     auth_url = 'https://accounts.spotify.com/api/token'
     try:
         auth_response = requests.post(auth_url, {
@@ -264,13 +264,13 @@ def topsongspotify(request):
         return render(request, 'error.html', {'error_message': 'หน้าเว็บไม่พร้อมใช้งานโปรดลองอีกครั้งในภายหลัง'})
     access_token = auth_response.json()['access_token']
     
-    # Set up headers with the access token
+    
     headers = {
         'Authorization': f'Bearer {access_token}'
     }
     
-    # Get the tracks of the global top songs playlist
-    playlist_id = '37i9dQZEVXbMDoHDwVN2tF' # This is the playlist ID for the global top songs
+    
+    playlist_id = '37i9dQZEVXbMDoHDwVN2tF' 
     try:
         response = requests.get(f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks', headers=headers)
     except requests.exceptions.RequestException as e:
@@ -279,7 +279,7 @@ def topsongspotify(request):
     if response.status_code != 200:
         return render(request, 'error.html', {'error_message': 'หน้าเว็บไม่พร้อมใช้งานโปรดลองอีกครั้งในภายหลัง'})
 
-    # Get the top 10 songs, artists, album images, and genres
+    
     top_songs = response.json()['items']
     song_data = []
     for i,song in enumerate(top_songs[:10]):
@@ -333,13 +333,13 @@ def topsonglastfm(request):
     if not request.user.is_authenticated:
         return redirect("userlogin")
         
-    # Set up LastFM API credentials
+   
     API_KEY = os.getenv("API_KEY")
     API_SECRET = os.getenv("API_SECRET")
     username = os.getenv("USER_NAME")
     password_hash = pylast.md5(os.getenv("password_hash"))
 
-    # Connect to the Last.fm API
+    
     try:
         network = pylast.LastFMNetwork(api_key=API_KEY, api_secret=API_SECRET,
                                     username=username, password_hash=password_hash)
@@ -350,7 +350,7 @@ def topsonglastfm(request):
         return render(request, 'error.html', {'error_message': 'หน้าเว็บไม่พร้อมใช้งานโปรดลองอีกครั้งในภายหลัง:' })    
    
 
-    # Get the top 10 songs, artists and album images
+   
     try:
         top_tracks_of_week = network.get_top_tracks(limit=10)
     except pylast.NetworkError:
@@ -359,7 +359,7 @@ def topsonglastfm(request):
     except Exception as e:
         return render(request, 'error.html', {'error_message': 'หน้าเว็บไม่พร้อมใช้งานโปรดลองอีกครั้งในภายหลัง' })
 
-    # Extract the track information
+    
     song_data = []
     genre = ['blue','classical','country','disco','hiphop','jazz','metal','pop','raggae','rock']
     for i,track in enumerate(top_tracks_of_week):
@@ -402,7 +402,7 @@ def download_json(request):
     
 @login_required(login_url="userlogin")
 def collection_detail(request, collectionname):
-    collection = Collection.objects.filter(UserName=request.user, collectionname=collectionname)
+    collection = Collection.objects.filter(UserName=request.user, CollectionName=collectionname)
     if len(collection) == 0:
         return redirect('/mainpage')
     else:
@@ -425,10 +425,10 @@ def collections(request):
 @login_required(login_url="userlogin")
 def collection_delete(request, audio_id):
     try:
-        collection = Collection.objects.get(UserName=request.user,audio_id=audio_id)
+        collection = Collection.objects.get(UserName=request.user,Audio_Id=audio_id)
         collection.delete()
         collectionname = collection.collectionname
-        collection = Collection.objects.filter(UserName=request.user,collectionname=collectionname)
+        collection = Collection.objects.filter(UserName=request.user,CollectionName=collectionname)
         if collection:
             return render(request, 'collectiondetail.html', {'collection':collection})
         else:
@@ -443,7 +443,7 @@ def delete_collection(request):
     if request.method == 'POST':
         collectionname = request.POST.get('entries')
         try:
-            entries = Collection.objects.filter(UserName=request.user,collectionname=collectionname)
+            entries = Collection.objects.filter(UserName=request.user,CollectionName=collectionname)
         except Collection.DoesNotExist:
             return render(request, 'error.html', {'error_message': 'Collection completed delete.'})
         entries.delete()
@@ -452,9 +452,9 @@ def delete_collection(request):
 @login_required(login_url="userlogin")
 def confirm_delete(request, audio_id):
     try:
-        collection = Collection.objects.get(UserName=request.user,audio_id=audio_id)
+        collection = Collection.objects.get(UserName=request.user,Audio_Id=audio_id)
         collectionname = collection.collectionname
-        collection = Collection.objects.filter(UserName=request.user,collectionname=collectionname)
+        collection = Collection.objects.filter(UserName=request.user,CollectionName=collectionname)
         return render(request, 'confirm_delete.html', {'collection': collection,'collectionname':collectionname})
     except Collection.DoesNotExist:
         return render(request, 'error.html', {'error_message': 'Collection completed delete.'})
@@ -464,7 +464,7 @@ def confirm_delete_collection(request):
     if request.method == 'POST':
         collectionname = request.POST.get('collectionname')
         try:
-            entries = Collection.objects.filter(UserName=request.user,collectionname=collectionname)
+            entries = Collection.objects.filter(UserName=request.user,CollectionName=collectionname)
         except Collection.DoesNotExist:
             return render(request, 'error.html', {'error_message': "Collection completed delete."})
 
