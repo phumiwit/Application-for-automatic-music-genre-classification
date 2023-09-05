@@ -166,7 +166,7 @@ def user_delete(request, user_id):
             except Userdata.DoesNotExist:
                 return redirect("userlogin")
             username = user.UserName
-            related_user = User.objects.get(username=username)
+            related_user = User.objects.get(UserName=username)
             audio_data = Audio.objects.filter(UserName=related_user)
             collection_data = Collection.objects.filter(UserName=related_user)
             audio_data.delete()
@@ -187,7 +187,7 @@ def forgot_password(request):
         except User.DoesNotExist:
             return render(request, 'forgotpassword.html', {'error': 'Invalid email'})
 
-        # Generate a password reset token and send it to the user
+        
         token = default_token_generator.make_token(user)
         uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
         reset_url = reverse('reset_password', args=(uidb64, token))
